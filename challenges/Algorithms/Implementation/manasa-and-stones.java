@@ -1,27 +1,22 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the stones function below.
     static int[] stones(int n, int a, int b) {
-        if(a==b)
-            return new int[]{(n-1)*a};
-        int [] nums = new int[n];
-        int m = n-1;
-        if(a>b){
-            while(m >= 0){
-                nums[m] = (m)*a + (n-m-1)*b;
+        if (a == b)
+            return new int[] { (n - 1) * a };
+        int[] nums = new int[n];
+        int m = n - 1;
+        if (a > b) {
+            while (m >= 0) {
+                nums[m] = (m) * a + (n - m - 1) * b;
                 m--;
             }
-        }else{
-            while(m >= 0){
-                nums[m] = (m)*b + (n-m-1)*a;
+        } else {
+            while (m >= 0) {
+                nums[m] = (m) * b + (n - m - 1) * a;
                 m--;
             }
         }

@@ -6,13 +6,13 @@ import random
 import re
 import sys
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     n = int(input().strip())
-    if n%2 == 1:
-        print ("Weird")
+    if n % 2 == 1:
+        print("Weird")
     elif n >= 2 and n <= 5:
-        print ("Not Weird")
+        print("Not Weird")
     elif n >= 6 and n <= 20:
-        print ("Weird")
+        print("Weird")
     else:
-        print ("Not Weird")
+        print("Not Weird")

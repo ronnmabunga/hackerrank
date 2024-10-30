@@ -1,36 +1,28 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
 import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
-public class Solution {
+class Solution {
 
     // Complete the dayOfProgrammer function below.
     static String dayOfProgrammer(int year) {
-        String oldDate = "01.01." + year;  
+        String oldDate = "01.01." + year;
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         Calendar c = Calendar.getInstance();
-        try{
+        try {
             c.setTime(sdf.parse(oldDate));
-        }catch(ParseException e){
+        } catch (ParseException e) {
         }
-        if(year<1918){
-            if(year%100 == 0 && year%400 != 0)
+        if (year < 1918) {
+            if (year % 100 == 0 && year % 400 != 0)
                 c.add(Calendar.DATE, 254);
             else
                 c.add(Calendar.DATE, 255);
-        }else if(year==1918)
+        } else if (year == 1918)
             c.add(Calendar.DATE, 268);
         else
             c.add(Calendar.DATE, 255);
-        
+
         String newDate = sdf.format(c.getTime());
         return newDate;
     }

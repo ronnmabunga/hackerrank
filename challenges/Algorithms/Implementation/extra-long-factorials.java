@@ -1,17 +1,12 @@
-import java.io.*;
 import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
-    static BigInteger [] facs = new BigInteger[101];
+class Solution {
+    static BigInteger[] facs = new BigInteger[101];
     static {
         facs[0] = BigInteger.ONE;
-        for(int i = 1; i < 101; i ++){
-            facs[i] = facs[i-1].multiply(BigInteger.valueOf(i));
+        for (int i = 1; i < 101; i++) {
+            facs[i] = facs[i - 1].multiply(BigInteger.valueOf(i));
         }
     }
 

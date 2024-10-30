@@ -1,15 +1,6 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
-
-
-
+class Solution {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -30,15 +21,15 @@ public class Solution {
         int temp;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                temp =  arr[i][j]   + arr[i][j+1]   + arr[i][j+2] 
-                                    + arr[i+1][j+1] 
-                      + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
-                if( temp > max ){
+                temp = arr[i][j] + arr[i][j + 1] + arr[i][j + 2]
+                        + arr[i + 1][j + 1]
+                        + arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
+                if (temp > max) {
                     max = temp;
                 }
-                //System.out.print(temp+" ");
+                // System.out.print(temp+" ");
             }
-            //System.out.println("");
+            // System.out.println("");
         }
         System.out.println(max);
     }

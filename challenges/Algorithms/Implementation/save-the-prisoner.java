@@ -1,16 +1,11 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the saveThePrisoner function below.
     static int saveThePrisoner(int n, int m, int s) {
-        return ((s+m%n-1)%n==0?n:(s+m%n-1)%n);
+        return ((s + m % n - 1) % n == 0 ? n : (s + m % n - 1) % n);
 
     }
 

@@ -1,12 +1,7 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the cutTheSticks function below.
     static int[] cutTheSticks(int[] arr) {
@@ -14,13 +9,13 @@ public class Solution {
         int cut = arr[0];
         List<Integer> nums = new LinkedList();
         nums.add(arr.length);
-        for(int i = 1; i < arr.length; i ++){
-            if(arr[i]-cut>0){
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] - cut > 0) {
                 cut = arr[i];
                 nums.add(arr.length - i);
-            }    
+            }
         }
-        return nums.stream().mapToInt(i->i).toArray();
+        return nums.stream().mapToInt(i -> i).toArray();
 
     }
 

@@ -1,17 +1,17 @@
-if __name__ == '__main__':
+if __name__ == "__main__":
     nl = []
     for _ in range(int(input())):
         name = input()
         score = float(input())
-        l = [score,name]
+        l = [score, name]
         nl.append(l)
-    nl.sort(key=lambda x:x[0])
+    nl.sort(key=lambda x: x[0])
     LowestScore = None
     secondLowestScore = None
     for i in nl:
         if not LowestScore:
             LowestScore = i[0]
-        elif not(i[0] == LowestScore):
+        elif not (i[0] == LowestScore):
             secondLowestScore = i[0]
             break
     slss = []

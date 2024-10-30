@@ -1,28 +1,23 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the fairRations function below.
     static int fairRations(int[] B) {
         int total = 0;
-        for(int i = 0; i < B.length; i ++){
-            B[i] = B[i]%2;
-            total+= B[i];
+        for (int i = 0; i < B.length; i++) {
+            B[i] = B[i] % 2;
+            total += B[i];
         }
-        if(total%2!=0)
+        if (total % 2 != 0)
             return -1;
-        for(int i = 0; i < B.length; i ++){
-            if(B[i]==1){
+        for (int i = 0; i < B.length; i++) {
+            if (B[i] == 1) {
                 i++;
-                while(B[i]!=1){
+                while (B[i] != 1) {
                     i++;
-                    total+=2;
+                    total += 2;
                 }
             }
         }
@@ -48,7 +43,7 @@ public class Solution {
         }
 
         int result = fairRations(B);
-        if(result==-1)
+        if (result == -1)
             bufferedWriter.write("NO");
         else
             bufferedWriter.write(String.valueOf(result));

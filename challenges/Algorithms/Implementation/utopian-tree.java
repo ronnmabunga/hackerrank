@@ -1,21 +1,17 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
-    static int [] hts = new int[60];
+class Solution {
+    static int[] hts = new int[60];
     static {
         hts[0] = 1;
-        for(int i = 1; i < 59; i ++){
-            hts[i] = hts[i-1] * 2;
+        for (int i = 1; i < 59; i++) {
+            hts[i] = hts[i - 1] * 2;
             i++;
-            hts[i] = hts[i-1] + 1;
+            hts[i] = hts[i - 1] + 1;
         }
     }
+
     // Complete the utopianTree function below.
     static int utopianTree(int n) {
         return hts[n];

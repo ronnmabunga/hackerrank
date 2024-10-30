@@ -1,8 +1,8 @@
 # Enter your code here. Read input from STDIN. Print output to STDOUT
 A = input()
-setA = set(input().split(' '))
+setA = set(input().split(" "))
 B = input()
-setB = set(input().split(' '))
+setB = set(input().split(" "))
 sym = []
 for a in setA:
     if not a in setB:

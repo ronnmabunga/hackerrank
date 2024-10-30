@@ -1,25 +1,20 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the angryProfessor function below.
     static String angryProfessor(int k, int[] as) {
         int notlate = 0;
-        for(int a:as){
-            if(a<=0)
+        for (int a : as) {
+            if (a <= 0)
                 notlate++;
         }
-        if(notlate<k)
+        if (notlate < k)
             return "YES";
         else
             return "NO";
-            
+
     }
 
     private static final Scanner scanner = new Scanner(System.in);

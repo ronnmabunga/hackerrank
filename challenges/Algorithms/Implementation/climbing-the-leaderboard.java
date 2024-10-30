@@ -1,12 +1,7 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the climbingLeaderboard function below.
     static int[] climbingLeaderboard(int[] scores, int[] alice) {
@@ -14,21 +9,21 @@ public class Solution {
         int j = 0;
         int rank = 1;
         int last = scores[0];
-        for(int i = alice.length-1; i >= 0; i --){
+        for (int i = alice.length - 1; i >= 0; i--) {
             h = false;
-            for(; j < scores.length; j ++){
-                if(scores[j]!=last){
+            for (; j < scores.length; j++) {
+                if (scores[j] != last) {
                     rank++;
-                    last=scores[j];
+                    last = scores[j];
                 }
-                if(alice[i] >= last){
+                if (alice[i] >= last) {
                     alice[i] = rank;
                     h = true;
                     break;
                 }
             }
-            if(!h){
-                alice[i] = rank+1;
+            if (!h) {
+                alice[i] = rank + 1;
             }
         }
         return alice;

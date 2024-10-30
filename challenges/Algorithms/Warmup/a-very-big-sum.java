@@ -1,17 +1,13 @@
 import java.io.*;
 import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the aVeryBigSum function below.
     static long aVeryBigSum(long[] ar) {
         BigInteger sum = BigInteger.ZERO;
-        for(long arr:ar){
+        for (long arr : ar) {
             sum = sum.add(BigInteger.valueOf(arr));
         }
         return sum.longValue();

@@ -1,21 +1,16 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the jumpingOnClouds function below.
     // 0 0 1 0 0 1 1 0
     static int jumpingOnClouds(int[] c, int k) {
         int e = 100;
-        for(int i = k; i%c.length!=0; i=i+k){
-            e = e - (c[i%c.length]==1?3:1);
+        for (int i = k; i % c.length != 0; i = i + k) {
+            e = e - (c[i % c.length] == 1 ? 3 : 1);
         }
-        e = e - (c[0]==1?3:1);
+        e = e - (c[0] == 1 ? 3 : 1);
         return e;
     }
 

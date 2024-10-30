@@ -1,20 +1,15 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the serviceLane function below.
     static int[] serviceLane(int n, int[] width, int[][] cases) {
-        int [] result = new int[cases.length];
-        for(int i = 0; i < result.length; i ++){
+        int[] result = new int[cases.length];
+        for (int i = 0; i < result.length; i++) {
             result[i] = width[cases[i][0]];
-            for(int j = cases[i][0]+1; j <= cases[i][1]; j ++){
-                if(result[i]>width[j])
+            for (int j = cases[i][0] + 1; j <= cases[i][1]; j++) {
+                if (result[i] > width[j])
                     result[i] = width[j];
             }
         }

@@ -1,35 +1,31 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the acmTeam function below.
     static int[] acmTeam(String[] topic) {
         int maxCount = 0;
         int maxValue = 0;
         int count;
-        for(int i = 0; i <topic.length-1; i ++){
-            for(int j = i+1; j < topic.length; j ++){
-                count = counter(topic[i],topic[j]);
-                if(count == maxValue){
+        for (int i = 0; i < topic.length - 1; i++) {
+            for (int j = i + 1; j < topic.length; j++) {
+                count = counter(topic[i], topic[j]);
+                if (count == maxValue) {
                     maxCount++;
-                }else if(count > maxValue){
+                } else if (count > maxValue) {
                     maxCount = 1;
                     maxValue = count;
                 }
             }
         }
-        return new int[]{maxValue,maxCount};
+        return new int[] { maxValue, maxCount };
     }
-    static int counter(String a, String b){
+
+    static int counter(String a, String b) {
         int cnt = 0;
-        for(int i = 0; i < a.length(); i ++){
-            if(a.charAt(i) == '1' || b.charAt(i) == '1')
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) == '1' || b.charAt(i) == '1')
                 cnt++;
         }
         return cnt;

@@ -1,17 +1,12 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the hurdleRace function below.
     static int hurdleRace(int k, int[] height) {
         Arrays.sort(height);
-        return (height[height.length-1]>k)?(height[height.length-1] - k):0;
+        return (height[height.length - 1] > k) ? (height[height.length - 1] - k) : 0;
 
     }
 

@@ -1,26 +1,20 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the miniMaxSum function below.
     static void miniMaxSum(int[] arr) {
         int min = arr[0];
         int max = arr[0];
         long sum = arr[0];
-        for(int i = 1; i < arr.length; i++){
-            if(min > arr[i])
+        for (int i = 1; i < arr.length; i++) {
+            if (min > arr[i])
                 min = arr[i];
-            if(max < arr[i])
+            if (max < arr[i])
                 max = arr[i];
             sum += arr[i];
         }
-        System.out.print( (sum-max) + " " + (sum -min));
+        System.out.print((sum - max) + " " + (sum - min));
     }
 
     private static final Scanner scanner = new Scanner(System.in);

@@ -1,47 +1,42 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the appendAndDelete function below.
     static String appendAndDelete(String s, String t, int k) {
-        int shorterlength = s.length() > t.length() ? t.length(): s.length();
+        int shorterlength = s.length() > t.length() ? t.length() : s.length();
         int firstdifference = 0;
         boolean found = false;
-        for(int i = 0; i < shorterlength; i ++){
-            if(s.charAt(i) != t.charAt(i)){
+        for (int i = 0; i < shorterlength; i++) {
+            if (s.charAt(i) != t.charAt(i)) {
                 firstdifference = i;
                 found = true;
                 break;
-            }   
+            }
         }
-        if(found){
-            if(s.length() + t.length() - 2 * firstdifference > k)
+        if (found) {
+            if (s.length() + t.length() - 2 * firstdifference > k)
                 return "No";
-            else{
-                if(Math.abs(s.length() + t.length() - 2 * firstdifference - k)%2 == 1){
-                    if(k>= s.length()+t.length())
+            else {
+                if (Math.abs(s.length() + t.length() - 2 * firstdifference - k) % 2 == 1) {
+                    if (k >= s.length() + t.length())
                         return "Yes";
                     else
                         return "No";
-                }else
+                } else
                     return "Yes";
             }
-        }else{
-            if(Math.abs(s.length() - t.length()) > k)
+        } else {
+            if (Math.abs(s.length() - t.length()) > k)
                 return "No";
-            else{
-                if(Math.abs(s.length() + t.length() - 2 * firstdifference - k)%2 == 1){
-                    if(k>= s.length()+t.length())
+            else {
+                if (Math.abs(s.length() + t.length() - 2 * firstdifference - k) % 2 == 1) {
+                    if (k >= s.length() + t.length())
                         return "Yes";
                     else
                         return "No";
-                }else
+                } else
                     return "Yes";
             }
         }

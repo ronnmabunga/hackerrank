@@ -1,25 +1,20 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
     // Complete the permutationEquation function below.
     static int[] permutationEquation(int[] p) {
-        int [] s = new int[p.length];
-        int [] r = new int[p.length];
-        //p = 4 3 5 1 2
-        for(int i = 0; i < p.length; i++){
-            s[p[i]-1] = i+1;
+        int[] s = new int[p.length];
+        int[] r = new int[p.length];
+        // p = 4 3 5 1 2
+        for (int i = 0; i < p.length; i++) {
+            s[p[i] - 1] = i + 1;
         }
-        //s = 4 5 2 1 3
-        for(int i = 0; i < p.length; i++){
-           p[i] = s[s[i]-1];
+        // s = 4 5 2 1 3
+        for (int i = 0; i < p.length; i++) {
+            p[i] = s[s[i] - 1];
         }
-        //r = 1 3 5 4 2
+        // r = 1 3 5 4 2
         return p;
 
     }

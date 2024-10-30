@@ -1,27 +1,22 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the kangaroo function below.
     static String kangaroo(int x1, int v1, int x2, int v2) {
-        if(v1==v2 && x1 != x2)
+        if (v1 == v2 && x1 != x2)
             return "NO";
-        int diffInSpeed = - v1 + v2;
+        int diffInSpeed = -v1 + v2;
         int diffInDist = x1 - x2;
-        int result = diffInDist/diffInSpeed;
-        double resultInDouble = ((double)diffInDist)/((double)diffInSpeed);
-        if((double)result == resultInDouble){
-            if(result<0)
+        int result = diffInDist / diffInSpeed;
+        double resultInDouble = ((double) diffInDist) / ((double) diffInSpeed);
+        if ((double) result == resultInDouble) {
+            if (result < 0)
                 return "NO";
             else
                 return "YES";
-        }else
+        } else
             return "NO";
     }
 

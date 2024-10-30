@@ -1,26 +1,24 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the workbook function below.
     static int workbook(int n, int k, int[] arr) {
         int page = 1;
         int sp = 0;
-        int lastindex,min;
-        for(int i = 0; i < arr.length; i ++){
+        int lastindex, min;
+        for (int i = 0; i < arr.length; i++) {
             lastindex = 1;
-            while(arr[i]!=0){
-                min = (k<arr[i]?k:arr[i]);
-                System.out.println("page:"+page+" sp:"+sp+" arr[i]:"+arr[i]+" lastindex:"+lastindex+" min:"+min);
-                if(lastindex <= page && page < lastindex+min)
+            while (arr[i] != 0) {
+                min = (k < arr[i] ? k : arr[i]);
+                System.out.println(
+                        "page:" + page + " sp:" + sp + " arr[i]:" + arr[i] + " lastindex:" + lastindex + " min:" + min);
+                if (lastindex <= page && page < lastindex + min)
                     sp++;
-                page++;lastindex+=min; arr[i]-=min;
+                page++;
+                lastindex += min;
+                arr[i] -= min;
             }
         }
         return sp;

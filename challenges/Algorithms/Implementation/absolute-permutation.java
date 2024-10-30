@@ -1,30 +1,25 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the absolutePermutation function below.
     static int[] absolutePermutation(int n, int k) {
-        if(k==0){
-            int [] result = new int[n];
-            for(int i = 0; i < result.length; i ++)
-                result[i] = i+1;
+        if (k == 0) {
+            int[] result = new int[n];
+            for (int i = 0; i < result.length; i++)
+                result[i] = i + 1;
             return result;
         }
-        int k2 = 2*k;
-        if(k2>n || n%k2!=0)
-            return new int[]{-1};
-        int [] result = new int[n];
-        for(int i = 1; i <= result.length; i ++){
-            if(i%(k2) > k || i%(k2)==0)
-                result[i-1] = i-k;
+        int k2 = 2 * k;
+        if (k2 > n || n % k2 != 0)
+            return new int[] { -1 };
+        int[] result = new int[n];
+        for (int i = 1; i <= result.length; i++) {
+            if (i % (k2) > k || i % (k2) == 0)
+                result[i - 1] = i - k;
             else
-                result[i-1] = i+k;
+                result[i - 1] = i + k;
         }
         return result;
     }

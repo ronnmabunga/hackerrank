@@ -1,25 +1,20 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the sockMerchant function below.
     static int sockMerchant(int n, int[] ar) {
         int c = 0;
-        Map <Integer, Integer> cnt = new HashMap();
-        for(int socks:ar){
-            if(!cnt.containsKey(socks))
-                cnt.put(socks,1);
+        Map<Integer, Integer> cnt = new HashMap();
+        for (int socks : ar) {
+            if (!cnt.containsKey(socks))
+                cnt.put(socks, 1);
             else
-                cnt.put(socks,cnt.get(socks)+1);
+                cnt.put(socks, cnt.get(socks) + 1);
         }
-        for(int socks:cnt.keySet()){
-            c += cnt.get(socks)/2;
+        for (int socks : cnt.keySet()) {
+            c += cnt.get(socks) / 2;
         }
         return c;
     }

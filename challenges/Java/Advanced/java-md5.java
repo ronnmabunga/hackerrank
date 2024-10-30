@@ -1,11 +1,8 @@
-import java.io.*;
 import java.util.*;
-import java.text.*;
 import java.math.*;
-import java.util.regex.*;
 import java.security.*;
 
-public class Solution {
+class Solution {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Scanner in = new Scanner(System.in);
@@ -17,5 +14,6 @@ public class Solution {
         while (hashed.length() < 32)
             hashed = "0" + hashed;
         System.out.println(hashed);
+        in.close();
     }
 }

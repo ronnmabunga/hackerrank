@@ -1,26 +1,19 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-public class Solution {
+class Solution {
 
     // Complete the bonAppetit function below.
     static void bonAppetit(List<Integer> bill, int k, int b) {
         int total = 0;
-        for(Integer bil:bill){
+        for (Integer bil : bill) {
             total += bil;
         }
         total -= bill.get(k);
-        if(total/2 < b)
-            System.out.println(b - total/2);
+        if (total / 2 < b)
+            System.out.println(b - total / 2);
         else
             System.out.println("Bon Appetit");
     }
@@ -35,8 +28,8 @@ public class Solution {
         int k = Integer.parseInt(nk[1]);
 
         List<Integer> bill = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-            .map(Integer::parseInt)
-            .collect(toList());
+                .map(Integer::parseInt)
+                .collect(toList());
 
         int b = Integer.parseInt(bufferedReader.readLine().trim());
 

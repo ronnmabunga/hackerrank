@@ -1,47 +1,44 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the happyLadybugs function below.
     static String happyLadybugs(String b) {
         // if(b.equals("_"))
-        //     return "YES";
-        if(b.length()<2)
+        // return "YES";
+        if (b.length() < 2)
             return "NO";
-        if(checkIfAlreadyHappy(b))
+        if (checkIfAlreadyHappy(b))
             return "YES";
-        Map<Character,Integer> histogram = new HashMap();
-        for(char a:b.toCharArray())
-            histogram.put( (Character)a , (histogram.containsKey((Character)a)) ? histogram.get((Character)a) +1 : 1);
+        Map<Character, Integer> histogram = new HashMap();
+        for (char a : b.toCharArray())
+            histogram.put((Character) a, (histogram.containsKey((Character) a)) ? histogram.get((Character) a) + 1 : 1);
         System.out.println(histogram.toString());
-        if(!histogram.containsKey('_'))
+        if (!histogram.containsKey('_'))
             return "NO";
-        else if(histogram.keySet().size()==1)
+        else if (histogram.keySet().size() == 1)
             return "YES";
-        for(Character a:histogram.keySet()){
-            if(a!='_'){
-                if(histogram.get(a)==1)
+        for (Character a : histogram.keySet()) {
+            if (a != '_') {
+                if (histogram.get(a) == 1)
                     return "NO";
             }
         }
         return "YES";
     }
-    static boolean checkIfAlreadyHappy(String b){
-        char [] bb = b.toCharArray();
-        if(bb[0] != bb[1] || bb[bb.length-1]!=bb[bb.length-2])
+
+    static boolean checkIfAlreadyHappy(String b) {
+        char[] bb = b.toCharArray();
+        if (bb[0] != bb[1] || bb[bb.length - 1] != bb[bb.length - 2])
             return false;
-        for(int i = 1; i < bb.length - 1; i ++){
-            if(!(bb[i]==bb[i-1] || bb[i]==bb[i+1]))
+        for (int i = 1; i < bb.length - 1; i++) {
+            if (!(bb[i] == bb[i - 1] || bb[i] == bb[i + 1]))
                 return false;
         }
         return true;
     }
+
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {

@@ -1,33 +1,28 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the flatlandSpaceStations function below.
     static int flatlandSpaceStations(int n, int[] c) {
-        int maxdist=0;
-        int curmindist=c.length;
+        int maxdist = 0;
+        int curmindist = c.length;
         int temp;
         Set<Integer> d = new HashSet();
-        for(int cs:c)
+        for (int cs : c)
             d.add(cs);
-        for(int i = 0; i < n; i ++){
-            if(d.contains(i)){
-                curmindist=0;
+        for (int i = 0; i < n; i++) {
+            if (d.contains(i)) {
+                curmindist = 0;
                 continue;
-            }         
+            }
             curmindist = n;
-            for(int j:c){
+            for (int j : c) {
                 temp = Math.abs(i - j);
-                if(temp < curmindist)
+                if (temp < curmindist)
                     curmindist = temp;
             }
-            if(maxdist < curmindist)
+            if (maxdist < curmindist)
                 maxdist = curmindist;
         }
         return maxdist;

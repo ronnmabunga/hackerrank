@@ -2,9 +2,9 @@
 T = int(input())
 for i in range(T):
     A = input()
-    A = set(map(int,input().split(' ')))
+    A = set(map(int, input().split(" ")))
     B = input()
-    B = set(map(int,input().split(' ')))
+    B = set(map(int, input().split(" ")))
     A.difference_update(B)
     if len(A) == 0:
         print("True")

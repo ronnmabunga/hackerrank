@@ -1,21 +1,16 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the designerPdfViewer function below.
     static int designerPdfViewer(int[] h, String word) {
         int maxh = 0;
-        for(int i = 0; i < word.length(); i ++){
-            if(h[word.charAt(i) - 'a'] > maxh)
+        for (int i = 0; i < word.length(); i++) {
+            if (h[word.charAt(i) - 'a'] > maxh)
                 maxh = h[word.charAt(i) - 'a'];
         }
-        return maxh*word.length();
+        return maxh * word.length();
     }
 
     private static final Scanner scanner = new Scanner(System.in);

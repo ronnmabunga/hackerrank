@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Solution {
+class Solution {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -12,6 +12,6 @@ public class Solution {
         System.out.println("String: " + s);
         System.out.println("Double: " + d);
         System.out.print("Int: " + i);
+        scan.close();
     }
 }
-

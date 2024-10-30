@@ -1,34 +1,29 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
-    static Map <Long, Long> f = new HashMap();
+class Solution {
+    static Map<Long, Long> f = new HashMap();
     static {
         Long time = 1L;
         Long value = 3L;
-        do{
-            f.put(time,value);
-            time+=value;
-            value*=2L;
-        }while(time<=10000000000000L);
-        f.put(time,value);
-        //System.out.println(f.toString());
+        do {
+            f.put(time, value);
+            time += value;
+            value *= 2L;
+        } while (time <= 10000000000000L);
+        f.put(time, value);
+        // System.out.println(f.toString());
     }
 
     // Complete the strangeCounter function below.
     static long strangeCounter(long t) {
-        Object [] keys = f.keySet().toArray();
+        Object[] keys = f.keySet().toArray();
         Arrays.sort(keys);
-        for(int i = 0; i < keys.length; i ++){
-            if(t==(Long)keys[i])
-                return f.get((Long)keys[i]);
-            else if((Long)keys[i] > t){
-                return f.get((Long)keys[i-1]) - (t-(Long)keys[i-1]);
+        for (int i = 0; i < keys.length; i++) {
+            if (t == (Long) keys[i])
+                return f.get((Long) keys[i]);
+            else if ((Long) keys[i] > t) {
+                return f.get((Long) keys[i - 1]) - (t - (Long) keys[i - 1]);
             }
         }
         return 0L;

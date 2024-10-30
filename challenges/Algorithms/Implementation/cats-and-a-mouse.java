@@ -1,21 +1,16 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the catAndMouse function below.
     static String catAndMouse(int x, int y, int z) {
-        int c1m = Math.abs(x-z);
-        int c2m = Math.abs(y-z);
-        if(c1m == c2m){
+        int c1m = Math.abs(x - z);
+        int c2m = Math.abs(y - z);
+        if (c1m == c2m) {
             return "Mouse C";
-        }else{
-            return c1m>c2m?"Cat B":"Cat A";
+        } else {
+            return c1m > c2m ? "Cat B" : "Cat A";
         }
 
     }

@@ -1,27 +1,21 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the plusMinus function below.
     static void plusMinus(int[] arr) {
-        int pos=0, zer=0, min=0;
-        for(int a:arr){
-            if(a>0)
+        int pos = 0, zer = 0, min = 0;
+        for (int a : arr) {
+            if (a > 0)
                 pos++;
-            else if(a==0)
+            else if (a == 0)
                 zer++;
             else
                 min++;
         }
-        System.out.format("%.6f%n",((double)pos/(double)arr.length));
-        System.out.format("%.6f%n",((double)min/(double)arr.length));
-        System.out.format("%.6f%n",((double)zer/(double)arr.length));
+        System.out.format("%.6f%n", ((double) pos / (double) arr.length));
+        System.out.format("%.6f%n", ((double) min / (double) arr.length));
+        System.out.format("%.6f%n", ((double) zer / (double) arr.length));
     }
 
     private static final Scanner scanner = new Scanner(System.in);

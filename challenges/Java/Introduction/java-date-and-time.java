@@ -1,10 +1,5 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 class Result {
 
@@ -13,22 +8,36 @@ class Result {
      *
      * The function is expected to return a STRING.
      * The function accepts following parameters:
-     *  1. INTEGER month
-     *  2. INTEGER day
-     *  3. INTEGER year
+     * 1. INTEGER month
+     * 2. INTEGER day
+     * 3. INTEGER year
      */
 
     public static String findDay(int month, int date, int year) {
-        Date today = new Date(year-1900,month-1,date);
+        Date today = new Date(year - 1900, month - 1, date);
         String day;
-        switch(today.getDay()){
-            case 0: day="SUNDAY";break;
-            case 1: day="MONDAY";break;
-            case 2: day="TUESDAY";break;
-            case 3: day="WEDNESDAY";break;
-            case 4: day="THURSDAY";break;
-            case 5: day="FRIDAY";break;
-            default: day="SATURDAY";break;
+        switch (today.getDay()) {
+            case 0:
+                day = "SUNDAY";
+                break;
+            case 1:
+                day = "MONDAY";
+                break;
+            case 2:
+                day = "TUESDAY";
+                break;
+            case 3:
+                day = "WEDNESDAY";
+                break;
+            case 4:
+                day = "THURSDAY";
+                break;
+            case 5:
+                day = "FRIDAY";
+                break;
+            default:
+                day = "SATURDAY";
+                break;
         }
         return day;
 
@@ -36,7 +45,7 @@ class Result {
 
 }
 
-public class Solution {
+class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));

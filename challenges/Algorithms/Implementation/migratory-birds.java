@@ -1,32 +1,25 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-public class Solution {
+class Solution {
 
     // Complete the migratoryBirds function below.
     static int migratoryBirds(List<Integer> arr) {
-        int [] count = new int[5];
-        for(Integer types:arr){
-            count[types-1]++;
+        int[] count = new int[5];
+        for (Integer types : arr) {
+            count[types - 1]++;
         }
         int min = 4;
         int minVal = count[4];
-        for(int i=3; i >=0; i --){
-            if(count[i]>= minVal){
+        for (int i = 3; i >= 0; i--) {
+            if (count[i] >= minVal) {
                 min = i;
                 minVal = count[i];
             }
         }
-        return min+1;
+        return min + 1;
     }
 
     public static void main(String[] args) throws IOException {
@@ -36,8 +29,8 @@ public class Solution {
         int arrCount = Integer.parseInt(bufferedReader.readLine().trim());
 
         List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-            .map(Integer::parseInt)
-            .collect(toList());
+                .map(Integer::parseInt)
+                .collect(toList());
 
         int result = migratoryBirds(arr);
 

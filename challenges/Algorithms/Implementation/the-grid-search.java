@@ -1,37 +1,34 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
-    static String [] pattern;
-    static String [] grid;
+    static String[] pattern;
+    static String[] grid;
+
     // Complete the gridSearch function below.
     static String gridSearch(String[] G, String[] P) {
         pattern = P;
         grid = G;
         // Loops through the grid's vertical
-        for(int i = 0; i <= G.length - P.length; i ++){
+        for (int i = 0; i <= G.length - P.length; i++) {
             // Loops through the grid's horizontal
-            for(int j = 0; j <= G[i].length() - P[0].length(); j++){
-                if(findPattern(i,j))
+            for (int j = 0; j <= G[i].length() - P[0].length(); j++) {
+                if (findPattern(i, j))
                     return "YES";
             }
         }
         return "NO";
     }
-    static boolean findPattern(int r, int c){
-        for(int i = 0; i < pattern.length; i ++){
-            for(int j = 0; j < pattern[i].length(); j++){
-                if(grid[r+i].charAt(c+j) != pattern[i].charAt(j))
+
+    static boolean findPattern(int r, int c) {
+        for (int i = 0; i < pattern.length; i++) {
+            for (int j = 0; j < pattern[i].length(); j++) {
+                if (grid[r + i].charAt(c + j) != pattern[i].charAt(j))
                     return false;
             }
         }
-        return true;   
+        return true;
     }
 
     private static final Scanner scanner = new Scanner(System.in);

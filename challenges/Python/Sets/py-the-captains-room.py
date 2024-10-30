@@ -10,4 +10,4 @@ for a in A:
     else:
         X.add(a)
         B.add(a)
-print(str(X)[1:len(X)-2])
+print(str(X)[1 : len(X) - 2])

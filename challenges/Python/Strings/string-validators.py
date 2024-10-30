@@ -1,4 +1,4 @@
-if __name__ == '__main__':
+if __name__ == "__main__":
     s = input()
     hasAlphaNum = False
     hasAlpha = False
@@ -16,10 +16,9 @@ if __name__ == '__main__':
             hasLower = True
         if i.isupper():
             hasUpper = True
-    
+
     print(hasAlphaNum)
     print(hasAlpha)
     print(hasDig)
     print(hasLower)
     print(hasUpper)
-

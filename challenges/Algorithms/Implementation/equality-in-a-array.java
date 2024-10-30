@@ -1,20 +1,15 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the equalizeArray function below.
     static int equalizeArray(int[] arr) {
         Map<Integer, Integer> cnts = new HashMap();
         int maxcnt = 0;
-        for(Integer ar:arr){
-            cnts.put(ar, cnts.containsKey(ar)?cnts.get(ar)+1:1);
-            if(cnts.get(ar) > maxcnt)
+        for (Integer ar : arr) {
+            cnts.put(ar, cnts.containsKey(ar) ? cnts.get(ar) + 1 : 1);
+            if (cnts.get(ar) > maxcnt)
                 maxcnt = cnts.get(ar);
         }
         return arr.length - maxcnt;

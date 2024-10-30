@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Solution {
+class Solution {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -11,5 +11,6 @@ public class Solution {
         System.out.println(a);
         System.out.println(b);
         System.out.println(c);
+        scan.close();
     }
 }

@@ -1,30 +1,25 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the countingValleys function below.
     static int countingValleys(int n, String s) {
         int c = 0;
         int ht = 0;
         boolean inValley = false;
-        //UDDDUDUU
-        for(int i = 0; i < s.length(); i ++){
-            if(s.charAt(i) =='U'){
+        // UDDDUDUU
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'U') {
                 ht++;
-                if(inValley && ht==0){
+                if (inValley && ht == 0) {
                     c++;
                     inValley = false;
                 }
             }
-            if(s.charAt(i) =='D'){
+            if (s.charAt(i) == 'D') {
                 ht--;
-                if(!inValley && ht==-1){
+                if (!inValley && ht == -1) {
                     inValley = true;
                 }
             }

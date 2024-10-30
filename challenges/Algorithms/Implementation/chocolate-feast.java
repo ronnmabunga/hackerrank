@@ -1,22 +1,19 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the chocolateFeast function below.
     static int chocolateFeast(int n, int c, int m) {
-        return feast(n/c, 0, m, 0);
+        return feast(n / c, 0, m, 0);
     }
-    static int feast(int bars, int wrappers, int m, int total){
-        if(bars==0)
+
+    static int feast(int bars, int wrappers, int m, int total) {
+        if (bars == 0)
             return total;
-        return feast((bars+wrappers)/m,(bars+wrappers)%m, m, total+bars);
+        return feast((bars + wrappers) / m, (bars + wrappers) % m, m, total + bars);
     }
+
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {

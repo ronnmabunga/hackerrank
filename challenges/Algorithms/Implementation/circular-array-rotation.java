@@ -1,17 +1,12 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the circularArrayRotation function below.
     static int[] circularArrayRotation(int[] a, int k, int[] qs) {
-        for(int i=0;i<qs.length; i++){
-            qs[i] = a[(a.length+(qs[i]-k)%a.length)%a.length];
+        for (int i = 0; i < qs.length; i++) {
+            qs[i] = a[(a.length + (qs[i] - k) % a.length) % a.length];
         }
         return qs;
     }

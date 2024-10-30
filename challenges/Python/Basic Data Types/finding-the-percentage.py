@@ -1,4 +1,4 @@
-if __name__ == '__main__':
+if __name__ == "__main__":
     n = int(input())
     student_marks = {}
     for _ in range(n):
@@ -10,5 +10,5 @@ if __name__ == '__main__':
         grade = 0
         for x in student_marks[name]:
             grade = grade + x
-        student_marks[name] = grade/len(student_marks[name])
+        student_marks[name] = grade / len(student_marks[name])
     print("%.2f" % student_marks[query_name])

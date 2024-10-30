@@ -1,22 +1,17 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the birthdayCakeCandles function below.
     static int birthdayCakeCandles(int[] ar) {
         int max = ar[0];
         int count = 1;
-        for(int i = 1; i < ar.length; i ++){
-            if(ar[i] > max){
+        for (int i = 1; i < ar.length; i++) {
+            if (ar[i] > max) {
                 max = ar[i];
                 count = 1;
-            }else if(ar[i] == max)
+            } else if (ar[i] == max)
                 count++;
         }
         return count;

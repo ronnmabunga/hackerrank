@@ -1,22 +1,17 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the howManyGames function below.
     static int howManyGames(int p, int d, int m, int s) {
         // Return the number of games you can buy
-        if(p > s)
+        if (p > s)
             return 0;
-        if(p < m)
-            return s/m;
+        if (p < m)
+            return s / m;
         else
-            return 1 + howManyGames(p-d,d,m,s-p);
+            return 1 + howManyGames(p - d, d, m, s - p);
     }
 
     private static final Scanner scanner = new Scanner(System.in);

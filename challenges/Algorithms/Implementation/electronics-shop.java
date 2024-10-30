@@ -1,10 +1,7 @@
 import java.io.*;
-import java.math.*;
-import java.text.*;
 import java.util.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     /*
      * Complete the getMoneySpent function below.
@@ -13,13 +10,13 @@ public class Solution {
         Arrays.sort(keyboards);
         Arrays.sort(drives);
         int maxsum = keyboards[0] + drives[0], tempsum;
-        if(maxsum > b){
+        if (maxsum > b) {
             return -1;
         }
-        for(int i = 0; i < keyboards.length; i ++){
-            for(int j = 0; j < drives.length; j ++){
+        for (int i = 0; i < keyboards.length; i++) {
+            for (int j = 0; j < drives.length; j++) {
                 tempsum = keyboards[i] + drives[j];
-                if(tempsum > maxsum && tempsum <= b){
+                if (tempsum > maxsum && tempsum <= b) {
                     maxsum = tempsum;
                 }
             }
@@ -62,7 +59,8 @@ public class Solution {
         }
 
         /*
-         * The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
+         * The maximum amount of money she can spend on a keyboard and USB drive, or -1
+         * if she can't purchase both items
          */
 
         int moneySpent = getMoneySpent(keyboards, drives, b);

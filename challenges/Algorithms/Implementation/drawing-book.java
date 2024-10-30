@@ -1,16 +1,13 @@
 import java.io.*;
-import java.math.*;
-import java.text.*;
 import java.util.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     /*
      * Complete the pageCount function below.
      */
     static int pageCount(int n, int p) {
-        return n/2 - p/2 > p/2 ? p/2 : n/2 - p/2;
+        return n / 2 - p / 2 > p / 2 ? p / 2 : n / 2 - p / 2;
     }
 
     private static final Scanner scanner = new Scanner(System.in);

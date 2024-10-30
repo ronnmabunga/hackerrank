@@ -1,27 +1,22 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the organizingContainers function below.
     static String organizingContainers(int[][] container) {
-        int [] capacities = new int[container.length];
-        int [] quantities = new int[container.length];
-        for(int i = 0; i < container.length; i ++){
-            for(int j = 0; j < container.length; j ++){
+        int[] capacities = new int[container.length];
+        int[] quantities = new int[container.length];
+        for (int i = 0; i < container.length; i++) {
+            for (int j = 0; j < container.length; j++) {
                 capacities[i] += container[i][j];
                 quantities[j] += container[i][j];
             }
         }
         Arrays.sort(capacities);
         Arrays.sort(quantities);
-        for(int i = 0; i < container.length; i ++){
-            if(quantities[i] > capacities[i])
+        for (int i = 0; i < container.length; i++) {
+            if (quantities[i] > capacities[i])
                 return "Impossible";
         }
         return "Possible";

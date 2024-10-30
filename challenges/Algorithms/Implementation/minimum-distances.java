@@ -1,55 +1,50 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the minimumDistances function below.
     static int minimumDistances(int[] a) {
         Map<Integer, LinkedList<Integer>> histogram = new HashMap();
-        for(int i = 0; i < a.length; i ++){
+        for (int i = 0; i < a.length; i++) {
             LinkedList<Integer> forAdd;
-            if(histogram.containsKey(a[i])){
+            if (histogram.containsKey(a[i])) {
                 forAdd = histogram.get(a[i]);
                 forAdd.add(i);
-                histogram.put(a[i],forAdd);
-            }else{
+                histogram.put(a[i], forAdd);
+            } else {
                 forAdd = new LinkedList();
                 forAdd.add(i);
-                histogram.put(a[i],forAdd);
+                histogram.put(a[i], forAdd);
             }
         }
         Integer mindistance = -1;
-        for(Integer i:histogram.keySet()){
+        for (Integer i : histogram.keySet()) {
             LinkedList<Integer> entry = histogram.get(i);
-            if(entry.size()>1){
+            if (entry.size() > 1) {
                 Integer obtainedMin = minDist(entry);
-                if(obtainedMin < mindistance || mindistance == -1)
+                if (obtainedMin < mindistance || mindistance == -1)
                     mindistance = obtainedMin;
             }
-            if(mindistance==1)
+            if (mindistance == 1)
                 return 1;
         }
         return mindistance;
     }
 
-    static int minDist(LinkedList<Integer> entry){
-        Object [] entries = entry.toArray();
+    static int minDist(LinkedList<Integer> entry) {
+        Object[] entries = entry.toArray();
         int temp;
-        int minDistance = (Integer)entries[1]-(Integer)entries[0];
-        for(int i = 0; i < entries.length-1; i ++){
-            for(int j = i+1; j < entries.length; j ++){
-                temp = (Integer)entries[j]-(Integer)entries[i];
-                if(temp == 1)
+        int minDistance = (Integer) entries[1] - (Integer) entries[0];
+        for (int i = 0; i < entries.length - 1; i++) {
+            for (int j = i + 1; j < entries.length; j++) {
+                temp = (Integer) entries[j] - (Integer) entries[i];
+                if (temp == 1)
                     return 1;
-                if(temp < minDistance){
+                if (temp < minDistance) {
                     minDistance = temp;
                 }
-                    
+
             }
         }
         return minDistance;

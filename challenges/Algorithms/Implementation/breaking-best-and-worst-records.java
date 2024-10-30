@@ -1,23 +1,20 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the breakingRecords function below.
     static int[] breakingRecords(int[] scores) {
         int broke[] = new int[2];
-        int min=scores[0],max=scores[0];
-        for(int i = 1; i < scores.length; i ++){
-            if(scores[i] > max){
-                max =scores[i]; broke[0]++;
+        int min = scores[0], max = scores[0];
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i] > max) {
+                max = scores[i];
+                broke[0]++;
             }
-            if(scores[i] < min){
-                min =scores[i]; broke[1]++;
+            if (scores[i] < min) {
+                min = scores[i];
+                broke[1]++;
             }
         }
         return broke;

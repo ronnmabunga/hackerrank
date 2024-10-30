@@ -1,6 +1,6 @@
 def minion_game(string):
     # your code goes here
-    vowels = 'AEIOU'
+    vowels = "AEIOU"
     string = list(string)
     Kevin = 0
     Stuart = 0
@@ -11,12 +11,13 @@ def minion_game(string):
         else:
             Stuart += length - i
     if Kevin > Stuart:
-        print('Kevin '+str(Kevin))
+        print("Kevin " + str(Kevin))
     elif Kevin < Stuart:
-        print('Stuart '+str(Stuart))
+        print("Stuart " + str(Stuart))
     else:
-        print('Draw')
+        print("Draw")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     s = input()
     minion_game(s)

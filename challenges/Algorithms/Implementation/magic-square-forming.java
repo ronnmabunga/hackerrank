@@ -1,36 +1,31 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     // Complete the formingMagicSquare function below.
     static int formingMagicSquare(int[][] s) {
-        int [][][] msquares = {
-        {{8,1,6},{3,5,7},{4,9,2}}, 
-        {{4,3,8},{9,5,1},{2,7,6}},
-        {{2,9,4},{7,5,3},{6,1,8}},
-        {{6,7,2},{1,5,9},{8,3,4}},
-        {{6,1,8},{7,5,3},{2,9,4}},
-        {{8,3,4},{1,5,9},{6,7,2}},
-        {{4,9,2},{3,5,7},{8,1,6}},
-        {{2,7,6},{9,5,1},{4,3,8}}
+        int[][][] msquares = {
+                { { 8, 1, 6 }, { 3, 5, 7 }, { 4, 9, 2 } },
+                { { 4, 3, 8 }, { 9, 5, 1 }, { 2, 7, 6 } },
+                { { 2, 9, 4 }, { 7, 5, 3 }, { 6, 1, 8 } },
+                { { 6, 7, 2 }, { 1, 5, 9 }, { 8, 3, 4 } },
+                { { 6, 1, 8 }, { 7, 5, 3 }, { 2, 9, 4 } },
+                { { 8, 3, 4 }, { 1, 5, 9 }, { 6, 7, 2 } },
+                { { 4, 9, 2 }, { 3, 5, 7 }, { 8, 1, 6 } },
+                { { 2, 7, 6 }, { 9, 5, 1 }, { 4, 3, 8 } }
         };
-        int minscore=-1, tempscore;
-        for(int i = 0; i < 8; i ++){
+        int minscore = -1, tempscore;
+        for (int i = 0; i < 8; i++) {
             tempscore = 0;
-            for(int j = 0; j < 3; j++){
-                for(int k = 0; k < 3; k++){
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
                     tempscore += Math.abs(s[j][k] - msquares[i][j][k]);
                 }
             }
-            if(i == 0 )
+            if (i == 0)
                 minscore = tempscore;
-            else if(tempscore < minscore )
+            else if (tempscore < minscore)
                 minscore = tempscore;
         }
         return minscore;

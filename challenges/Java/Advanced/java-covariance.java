@@ -4,62 +4,61 @@ import java.io.InputStreamReader;
 
 //Complete the classes below
 class Flower {
-    String whatsYourName(){
+    String whatsYourName() {
         return "I have many names and types.";
     }
 }
 
-class Jasmine extends Flower{
-    String whatsYourName(){
+class Jasmine extends Flower {
+    String whatsYourName() {
         return "Jasmine";
     }
 }
 
-class Lotus extends Flower{
-    String whatsYourName(){
+class Lotus extends Flower {
+    String whatsYourName() {
         return "Lotus";
     }
 }
 
-class Lily extends Flower{
-    String whatsYourName(){
+class Lily extends Flower {
+    String whatsYourName() {
         return "Lily";
     }
 }
 
 class Region {
-    Flower yourNationalFlower(){
+    Flower yourNationalFlower() {
         return new Flower();
     }
 }
 
-class WestBengal extends Region{
-    Jasmine yourNationalFlower(){
+class WestBengal extends Region {
+    Jasmine yourNationalFlower() {
         return new Jasmine();
     }
 }
 
-class AndhraPradesh extends Region{
-    Lily yourNationalFlower(){
+class AndhraPradesh extends Region {
+    Lily yourNationalFlower() {
         return new Lily();
     }
 }
 
-
-public class Solution {
-  public static void main(String[] args) throws IOException {
-      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      String s = reader.readLine().trim();
-      Region region = null;
-      switch (s) {
-        case "WestBengal":
-          region = new WestBengal();
-          break;
-        case "AndhraPradesh":
-          region = new AndhraPradesh();
-          break;
-      }
-      Flower flower = region.yourNationalFlower();
-      System.out.println(flower.whatsYourName());
+class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine().trim();
+        Region region = null;
+        switch (s) {
+            case "WestBengal":
+                region = new WestBengal();
+                break;
+            case "AndhraPradesh":
+                region = new AndhraPradesh();
+                break;
+        }
+        Flower flower = region.yourNationalFlower();
+        System.out.println(flower.whatsYourName());
     }
 }

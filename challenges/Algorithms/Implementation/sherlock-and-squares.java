@@ -1,25 +1,21 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Solution {
 
     static LinkedList<Integer> sqs = new LinkedList();
     static {
-        for(int i = 0; i < 31623; i ++){
-            sqs.add(i*i);
+        for (int i = 0; i < 31623; i++) {
+            sqs.add(i * i);
         }
     }
+
     // Complete the squares function below.
     static int squares(int a, int b) {
 
-        int roota = (int)Math.ceil(Math.sqrt(a));
-        int rootb = (int)Math.floor(Math.sqrt(b));
-        return rootb-roota+1;
+        int roota = (int) Math.ceil(Math.sqrt(a));
+        int rootb = (int) Math.floor(Math.sqrt(b));
+        return rootb - roota + 1;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
