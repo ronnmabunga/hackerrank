@@ -1,0 +1,48 @@
+let screen = document.getElementById("res");
+var btn0x = document.getElementById("btn0");
+var btn1x = document.getElementById("btn1");
+var btnClrx = document.getElementById("btnClr");
+var btnEqlx = document.getElementById("btnEql");
+var btnSumx = document.getElementById("btnSum");
+var btnSubx = document.getElementById("btnSub");
+var btnMulx = document.getElementById("btnMul");
+var btnDivx = document.getElementById("btnDiv");
+btn0x.addEventListener("click", function () {
+    screen.innerHTML += "0";
+});
+btn1x.addEventListener("click", function () {
+    screen.innerHTML += "1";
+});
+btnClrx.addEventListener("click", function () {
+    screen.innerHTML = "";
+});
+btnSumx.addEventListener("click", function () {
+    if (!(screen.innerHTML.endsWith("*") || screen.innerHTML.endsWith("/") || screen.innerHTML.endsWith("-") || screen.innerHTML.endsWith("+"))) {
+        screen.innerHTML += "+";
+    }
+});
+btnSubx.addEventListener("click", function () {
+    if (!(screen.innerHTML.endsWith("*") || screen.innerHTML.endsWith("/") || screen.innerHTML.endsWith("-") || screen.innerHTML.endsWith("+"))) {
+        screen.innerHTML += "-";
+    }
+});
+btnMulx.addEventListener("click", function () {
+    if (!(screen.innerHTML.endsWith("*") || screen.innerHTML.endsWith("/") || screen.innerHTML.endsWith("-") || screen.innerHTML.endsWith("+"))) {
+        screen.innerHTML += "*";
+    }
+});
+btnDivx.addEventListener("click", function () {
+    if (!(screen.innerHTML.endsWith("*") || screen.innerHTML.endsWith("/") || screen.innerHTML.endsWith("-") || screen.innerHTML.endsWith("+"))) {
+        screen.innerHTML += "/";
+    }
+});
+btnEqlx.addEventListener("click", function () {
+    if (!(screen.innerHTML.endsWith("*") || screen.innerHTML.endsWith("/") || screen.innerHTML.endsWith("-") || screen.innerHTML.endsWith("+"))) {
+        var nums = new RegExp("\\d+", "g");
+        var regex = screen.innerHTML;
+        regex = regex.replace(nums, function (match) {
+            return parseInt(match, 2);
+        });
+        screen.innerHTML = eval(regex).toString(2);
+    }
+});
