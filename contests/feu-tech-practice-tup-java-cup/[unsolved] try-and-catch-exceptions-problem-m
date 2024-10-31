@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        Integer N = inp.nextInt();
+        ArrayList<Integer> hts = new ArrayList();
+        while(inp.hasNext()){
+            hts.add(inp.nextInt());
+        }
+        int charges = 0;
+        int blownFloor = 0;
+        while(hts.size() > 0){
+            int maxOfList = Collections.max(hts);
+            int diff = hts.size() - maxOfList + blownFloor;
+            //System.out.println(diff);
+            if(diff>0 || Collections.frequency(hts, maxOfList) == hts.size()){
+                for(int j = 0; j <= diff; j++){
+                    blownFloor++;
+                    ArrayList<Integer> toRemove = new ArrayList();
+                    for(int i = 0; i < hts.size(); i++){
+                        if(hts.get(i) - blownFloor <= 0){
+                            toRemove.add(hts.get(i));
+                        }
+                    }
+                    hts.removeAll(toRemove);
+                    if(!toRemove.isEmpty()){
+                        charges++;
+                    }
+                }
+            }else{
+                while(hts.indexOf(maxOfList)!=-1){
+                    hts.remove(hts.indexOf(maxOfList));
+                    charges++;
+                }
+            }
+            //System.out.println(hts);
+        }
+        System.out.println(charges);
+    }
+}

@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Integer x1 = in.nextInt(); Integer y1 = in.nextInt();
+        Integer x2 = in.nextInt(); Integer y2 = in.nextInt();
+        Integer x3 = in.nextInt(); Integer y3 = in.nextInt();
+        Integer x4 = in.nextInt(); Integer y4 = in.nextInt();
+        Integer area = (Math.min(x4,x2) - Math.max(x3,x1))*(Math.min(y4,y2) - Math.max(y3,y1));
+        boolean converging = false;
+        if(area != 0){
+            System.out.println("Area: "+ area + " square units");
+        }else{
+            if(Math.max(x3,x1)==Math.min(x4,x2) || (Math.min(y4,y2) == Math.max(y3,y1)) ){
+                System.out.println("Directly Beside Each Other");
+            }else{
+                System.out.println("No Convergence");
+            }
+        }
+    }
+}

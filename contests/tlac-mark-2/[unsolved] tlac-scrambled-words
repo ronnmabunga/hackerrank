@@ -1,0 +1,73 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'solve' function below.
+     *
+     * The function accepts STRING scrambled as parameter.
+     */
+
+    public static void solve(String scrambled) {
+    // Don't forget to add your name and student number as a comment
+        //2001720045 Ronn Michael I. Mabunga
+    // Enter code here
+        char [] str = scrambled.toCharArray();
+        char temp;
+        int lastLower = -1;
+        int lastUpper = -1;
+        for(int i = 0; i < str.length; i ++){
+            if(str[i]>='A' && str[i]<='Z'){
+                str[i] = (char)( (int)'A' + (26 + ((int)str[i] - 3) - (int)'A' )%26 );
+                if(lastUpper != -1){
+                    temp = str[lastUpper];
+                    str[lastUpper] = str[i];
+                    str[i] = temp;
+                    lastUpper = -1;
+                }else{
+                    lastUpper = i;
+                }
+            }else if(str[i]>='a' && str[i]<='z'){
+                str[i] = (char)( (int)'a' + (26 + ((int)str[i] - 3) - (int)'a' )%26 );
+                if(lastLower != -1){
+                    temp = str[lastLower];
+                    str[lastLower] = str[i];
+                    str[i] = temp;
+                    lastLower = -1;
+                }else{
+                    lastLower = i;
+                }
+            }else if(str[i]==' '){
+                lastLower = -1;
+            }
+        }
+        try{
+            System.out.printf(new String(str));  
+        }catch(Exception e){
+            
+        }
+        
+    }
+}
+
+class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        String scrambled = bufferedReader.readLine();
+
+        Result.solve(scrambled);
+
+        bufferedReader.close();
+    }
+}

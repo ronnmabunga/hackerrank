@@ -1,0 +1,113 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+class Solution {
+    static Scanner inp;
+    static Integer l,r;
+    static Integer [] eL,eR;
+    static String [] nL,nR;
+    
+    public static void main(String[] args) throws IOException {
+        inp = new Scanner(System.in);
+        String input = inp.nextLine();
+        boolean L = input.charAt(0)=='L'?true:false;
+        boolean Lined = input.charAt(2)=='1'?true:false;
+        l = inp.nextInt();
+        r = inp.nextInt();
+        if(l == 0 && r == 0){
+            System.out.println("");
+            return;
+        }
+        if(l != 0){
+            eL = new Integer[l];
+            nL = new String[l];
+        }
+        if(r != 0){
+            eR = new Integer[r];
+            nR = new String[r];
+        }
+        if(l != 0){
+            for(int i = 0 ; i < l; i ++){
+                nL[i] = inp.next();
+                eL[i] = inp.nextInt();
+                //System.out.println("confirm:" + nL[i] + " " + eL[i]);
+            }
+            sort(nL,eL);
+        }
+        if(r != 0){
+            for(int i = 0 ; i < r; i ++){
+                nR[i] = inp.next();
+                eR[i] = inp.nextInt();
+                //System.out.println("confirm:" + nR[i] + " " + eR[i]);
+            }
+            sort(nR,eR);
+        }
+        int li = 0, ri = 0;
+        String output = "";
+        int lminus = 0, rminus=0;
+        while(li <= l || ri <= r){
+            if(li == l){
+                if(ri == r-1){
+                    output = output + nR[ri++];
+                    break;
+                }else{
+                    output = output + nR[ri++]+", ";
+                }
+            }else if(ri == r){
+                if(li == l-1){
+                    output = output + nL[li++];
+                    break;
+                }else{
+                    output = output + nL[li++]+", ";
+                }
+            }else if( (eL[li]-lminus) < (eR[ri]-rminus) ){
+                output = output + nL[li++]+", ";
+                //System.out.println("<");
+            }else if( (eL[li]-lminus)> (eR[ri]-rminus) ){
+                output = output + nR[ri++]+", ";
+                //System.out.println(">");
+            }else{
+                if(L){
+                    if(Lined){
+                        output = output + nR[ri++]+", ";
+                        rminus++;
+                        //System.out.println("LBlocked Lined");
+                    }else{
+                        output = output + nL[li++]+", ";
+                        lminus++;
+                        //System.out.println("LBlocked NotLined");
+                    }
+                }else{
+                    if(Lined){
+                        output = output + nL[li++]+", ";
+                        lminus++;
+                        //System.out.println("RBlocked Lined");
+                    }else{
+                        output = output + nR[ri++]+", ";
+                        rminus++;
+                        //System.out.println("RBlocked NotLined");
+                    }
+                }
+            }
+        }
+        System.out.println(output);
+    }
+    static void sort(String [] nL, Integer [] eL){
+        Integer temp;
+        String temps;
+        for(int i = 0; i < eL.length; i ++){
+            for(int j = i; j < eL.length-1; j ++){
+                if(eL[j]>eL[j+1]){
+                    temp = eL[j];
+                    eL[j] = eL[j+1];
+                    eL[j+1] = temp;
+                    temps = nL[j];
+                    nL[j] = nL[j+1];
+                    nL[j+1] = temps;
+                }
+            }
+        }
+    }
+}

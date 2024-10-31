@@ -1,0 +1,114 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner inp = new Scanner (System.in);
+        int M = inp.nextInt();
+        int N = inp.nextInt();
+        Double [][] C = new Double[M+1][N+M+2];
+        for(int i = 0; i < M; i ++){
+            for(int j = 0; j < N; j++){
+                C[i][j] = inp.nextDouble();
+            }
+        }
+        for(int i = 0; i < M; i ++){
+            C[i][M+N+1] = inp.nextDouble();
+        }
+        for(int i = 0; i < N; i ++){
+            C[M][i] = inp.nextDouble();
+        }
+        for(int i = 0; i < M+1; i ++){
+            for(int j = N; j < N+M+1; j ++){
+                if(j-2 == i){
+                    C[i][j] = 1.0;
+                }else{
+                    C[i][j] = 0.0;
+                }
+            }
+        }
+        C[M][N+M+1] = 0.0;
+        maximize(C,N,M);
+    }
+    static void maximize(Double [][] D, int N, int M){
+        int pRow;
+        int pCol;
+        NumberFormat formatter = new DecimalFormat("#0.00");   
+        try{
+            while(hasNeg(D,N,M)){
+                pCol = fPCol(D,N,M);
+                pRow = fPRow(D,N,M,pCol);
+                //System.out.println("pCol: " + pCol + ", pRow: " + pRow);
+                D = xRa(D,N,M,pRow,pCol);
+                //print(D);
+                D = xRapRb(D,N,M,pRow,pCol);
+            }
+            System.out.println(formatter.format(D[M][N+M+1]));
+        }catch(Exception e){  
+            System.out.println(formatter.format(0.0));
+        }
+    }
+    static boolean hasNeg(Double [][] D, int N, int M){
+        boolean hasNeg = false;
+        for(int i = 0; i < N+M+1; i ++){
+            if(D[M][i] < 0.0){
+                hasNeg = true;
+            }
+        }
+        return hasNeg;
+    }
+    static int fPCol(Double [][] D, int N, int M){
+        Integer min = null;
+        for(int i = 0; i < N+M+2; i ++){
+            if(min == null && D[M][i] < 0.0){
+                min = i;
+            }else if(min != null && D[M][i] < 0.0 && D[M][i] < D[M][min]){
+                min = i;
+            }
+        }
+        return min;
+    }
+    static int fPRow(Double [][] D, int N, int M, int col){
+        Integer min = null;
+        for(int i = 0; i < M; i ++){
+            if(min == null && D[i][col]!=0.0 && D[i][N+M+1]/D[i][col]>=0.0){
+                min = i;
+            }else if(min != null && D[i][col]!=0.0 && D[i][N+M+1]/D[i][col] < D[min][N+M+1]/D[min][col]){
+                min = i;
+            }
+        }
+        return min;
+    }
+    static Double [][] xRa(Double [][] D, int N, int M,int pRow, int pCol){
+        Double n = D[pRow][pCol];
+        for(int i = 0; i < N+M+2; i ++){
+            D[pRow][i] /= n;
+        }
+        return D;
+    }
+    static Double [][] xRapRb(Double [][] D, int N, int M,int pRow, int pCol){
+        for(int i = 0; i < M+1; i ++){
+            if(i == pRow) continue;
+            Double n = D[i][pCol];
+            for(int j = 0; j < N+M+2; j ++){
+                D[i][j] = D[i][j] + n*(-1)*D[pRow][j];
+            }
+            //print(D);
+        }
+        return D;
+    }
+/*    static void print(Double [][] D){
+        NumberFormat formatter = new DecimalFormat("#0.00"); 
+        for(int i = 0; i < D.length; i ++){
+            for(int j = 0; j < D[0].length; j ++){
+                System.out.print(formatter.format(D[i][j])+"\t ");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+*/
+}

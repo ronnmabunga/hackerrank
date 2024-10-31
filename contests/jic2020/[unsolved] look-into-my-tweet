@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+class Solution {
+    static Scanner inp;
+    static int start;
+    static int end;
+    public static void main(String[] args) throws IOException {
+        inp = new Scanner(System.in);
+        String source= inp.nextLine();
+        String destination = inp.nextLine();
+        if(source.equals(destination)){
+            System.out.println(1 + " " +  source.length());
+        }else if(destination.length()>= source.length()){
+            System.out.println(0);
+        }else{
+            char [] src = source.toLowerCase().toCharArray();
+            char [] dest = destination.toLowerCase().toCharArray();
+            if(checker(src,dest)){
+                System.out.println(start + " " +  end);
+            }else{
+                System.out.println(0);
+            }
+        }
+    }
+    static boolean checker(char[]src,char[]dest){
+        boolean subs;
+        for(int i = 0; i <= src.length-dest.length ; i ++){
+            if(src[i]==dest[0]){
+                start = i+1;
+                end = i+dest.length;
+                subs = true;
+                for(int j = 1; j < dest.length; j++){
+                    if(src[i+j] != dest[j]){
+                        subs = false;
+                    }
+                }
+                if(subs){
+                    return subs;
+                }
+            }
+        }
+        return false;
+    }
+}

@@ -1,0 +1,35 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+class Solution {
+
+    public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        ArrayList <BigInteger> nums = new ArrayList();
+        while(inp.hasNext()){
+            nums.add(inp.nextBigInteger());
+        }
+        for(BigInteger num : nums){
+            play(num);
+        }
+    }
+    static void play(BigInteger N){
+        Random r = new Random();
+        boolean natWins = true;
+        BigInteger P = BigInteger.ONE;
+        while(P.compareTo(N) < 0){
+            Integer multiplier = 2 + r.nextInt(8);
+            //System.out.println(multiplier + ", " + P.toString());
+            P = P.multiply(BigInteger.valueOf(multiplier));
+            natWins = !natWins;
+        }
+        if(natWins){
+            System.out.println("Nats wins.");
+        }else{
+            System.out.println("Mecks wins.");
+        }
+    }
+}

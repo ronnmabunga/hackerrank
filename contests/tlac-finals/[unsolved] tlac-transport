@@ -1,0 +1,147 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Solution {
+    public static void main(String[] args) throws IOException {
+        Map<String, Integer> code = new HashMap();
+        Map<Integer, String> revcode = new HashMap();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        int nc = Integer.parseInt(br.readLine());
+        int [] nconnc = new int[nc];
+        for(Integer i = 0; i < nc; i ++){
+            st = new StringTokenizer(br.readLine());
+            String name = st.nextToken();
+            nconnc[i] = Integer.parseInt(st.nextToken());
+            code.put(name, i);
+            revcode.put(i, name);
+        }
+        int [][] d = new int[nc][nc];
+        String [][] paths = new String[nc][nc];
+        int [][] ncnt = new int[nc][nc];
+        for(int i = 0; i < nc; i ++){
+            Arrays.fill(d[i], -1);
+            Arrays.fill(paths[i], "None");
+            Arrays.fill(ncnt[i], 0);
+            d[i][i] = 0;
+            ncnt[i][i] = 1;
+            paths[i][i] = revcode.get(i);
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < nconnc[i]; j++){
+                Integer indexConn = code.get(st.nextToken());
+                d[i][indexConn] = Integer.parseInt(st.nextToken());
+                paths[i][indexConn] = revcode.get(i) + "->" + revcode.get(indexConn);
+                ncnt[i][indexConn] = 2;
+            }
+        }
+        st = new StringTokenizer(br.readLine());
+        int start = code.get(st.nextToken());
+        int end = code.get(st.nextToken());
+        br.close();
+        // for(int i = 0; i < nc; i ++){
+        //     for(int j = 0; j < nc; j ++){
+        //         System.out.print(d[i][j] + " ");
+        //     }
+        //     System.out.println();
+        // }
+        // for(int i = 0; i < nc; i ++){
+        //     for(int j = 0; j < nc; j ++){
+        //         System.out.print(paths[i][j] + ", ");
+        //     }
+        //     System.out.println();
+        // }
+        // System.out.println("====================================");
+        
+        boolean changed = false;
+        do{
+            changed = false;
+            for(int i = 0; i < nc; i ++){ 
+                for(int j = 0; j < nc; j ++){
+                    if(i == j)
+                        continue;
+                    for(int k = 0; k < nc; k ++){
+                        if(k == j || d[j][i] == -1 || d[j][k] == -1)
+                            continue;
+                        int temp = d[j][i] + d[j][k];
+                        if(temp < d[i][k]|| d[i][k] == -1){
+                            paths[i][k] = (paths[i][j].equals("None"))?"":(paths[i][j] + "->") + revcode.get(k);
+                            paths[k][i] = (revcode.get(k).equals("None"))?"":(paths[i][j] + "->") + paths[j][i];
+                            d[i][k] = temp;
+                            d[k][i] = temp;
+                            changed = true;
+                            
+                            // System.out.print("\t");
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            // }
+                            // System.out.println();
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            //     for(int ji = 0; ji < nc; ji ++){
+                            //         System.out.print(d[ii][ji] +"\t");
+                            //     }
+                            //     System.out.println();
+                            // }
+                            // System.out.print("\t");
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            // }
+                            // System.out.println();
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            //     for(int ji = 0; ji < nc; ji ++){
+                            //         System.out.print(paths[ii][ji] +"\t");
+                            //     }
+                            //     System.out.println();
+                            // }
+                            // System.out.println("====================================");
+                            
+                        }else if(temp == d[i][k] && ((ncnt[j][i] + ncnt[j][k] - 1)< ncnt[i][k] )){
+                            paths[i][k] = (paths[i][j].equals("None"))?"":(paths[i][j] + "->") + revcode.get(k);
+                            paths[k][i] = (revcode.get(k).equals("None"))?"":(paths[i][j] + "->") + paths[j][i];
+                            d[i][k] = temp;
+                            d[k][i] = temp;
+                            changed = true;
+                            
+                            // System.out.print("\t");
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            // }
+                            // System.out.println();
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            //     for(int ji = 0; ji < nc; ji ++){
+                            //         System.out.print(d[ii][ji] +"\t");
+                            //     }
+                            //     System.out.println();
+                            // }
+                            // System.out.print("\t");
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            // }
+                            // System.out.println();
+                            // for(int ii = 0; ii < nc; ii ++){
+                            //     System.out.print(revcode.get(ii) +"\t");
+                            //     for(int ji = 0; ji < nc; ji ++){
+                            //         System.out.print(paths[ii][ji] +"\t");
+                            //     }
+                            //     System.out.println();
+                            // }
+                            // System.out.println("====================================");
+                        }
+                    }
+                }
+            }
+        }while(changed);
+        System.out.println(paths[start][end]);
+    }
+}

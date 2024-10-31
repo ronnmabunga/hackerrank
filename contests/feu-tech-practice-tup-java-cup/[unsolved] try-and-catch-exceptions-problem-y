@@ -1,0 +1,48 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class Solution {
+    static Map <Integer, Boolean> isDP = new HashMap();
+    public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        Integer T = inp.nextInt();
+        Integer A, B, dpcnt;
+        for(Integer i = 0; i < T; i++){
+            A = inp.nextInt();
+            B = inp.nextInt();
+            dpcnt = 0;
+            for(Integer j = Math.min(A,B); j <= Math.max(A,B); j ++){
+                if(isDualPrime(j)){
+                    dpcnt++;
+                }
+            }
+            System.out.println(dpcnt);
+        }
+    }
+    static boolean isDualPrime(Integer i){
+        if(isDP.containsKey(i)){
+            return isDP.get(i);
+        }
+        BigInteger num = BigInteger.valueOf(i);
+        if(!num.isProbablePrime(1)){
+            isDP.put(i,false);
+            return false;
+        }else{
+            String strnum = num.toString();
+            if(!(addedDigits(strnum)).isProbablePrime(1)){
+                isDP.put(i,false);
+                return false;
+            }
+        }
+        isDP.put(i,true);
+        return true;
+    }
+    static BigInteger addedDigits(String str){
+        Integer num = 0;
+        for(int i = 0; i < str.length(); i ++){
+            num += str.charAt(i) - '0';
+        }
+        return BigInteger.valueOf(num);
+    }
+}

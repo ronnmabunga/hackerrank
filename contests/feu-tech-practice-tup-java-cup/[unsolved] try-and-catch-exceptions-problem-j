@@ -1,0 +1,30 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    double p,a,b,c,d;
+    int n;
+    cout<<fixed<<setprecision(6);
+    cin>>p>>a>>b>>c>>d>>n;
+    double ks [n];
+    for(int i = 0; i < n; i++){
+        ks[i] = p * (sin(a*i + b) + cos(c*i + d)+2);
+    }
+    double max = ks[0] - ks[1];
+    double place;
+    for(int i = 0; i < n-1; i ++){
+        for(int j = 1; j < n; j ++){
+            place = (ks[i] - ks[j]);
+            if ( place > max ){
+                max = place;
+            }
+        }
+    }
+    cout<<max;
+    return 0;
+}

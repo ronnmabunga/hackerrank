@@ -1,0 +1,726 @@
+
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+    //Ronn Michael I. Mabunga 201720045
+    static char[][] b;
+    static Integer m, n, a;
+    static ArrayList<ArrayList<Integer>> sp;
+    static ArrayList<Character> shapes;
+    static Boolean moving;
+    static BufferedWriter bw;
+
+    public static void main(String[] args) throws IOException, Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        m = Integer.parseInt(st.nextToken());   //rows
+        n = Integer.parseInt(st.nextToken());   //cols
+        a = Integer.parseInt(st.nextToken());   //spaceships
+        sp = new ArrayList();
+        shapes = new ArrayList();
+        ArrayList<Integer> ci;
+        for (int i = 0; i < a; i++) {
+            ci = new ArrayList();
+            st = new StringTokenizer(br.readLine());
+            shapes.add(st.nextToken().charAt(0));    // shape (t)
+            ci.add(Integer.parseInt(st.nextToken()));  // init x
+            ci.add(Integer.parseInt(st.nextToken()));  // init y
+            ci.add(Integer.parseInt(st.nextToken()));  // init rot
+            ci.add(Integer.parseInt(st.nextToken()));  // d x
+            ci.add(Integer.parseInt(st.nextToken()));  // d y
+            ci.add(Integer.parseInt(st.nextToken()));  // d rot
+            ci.add(1);                                 // flag for moving or not: 1 = moving, 0 if not
+            sp.add(ci);
+        }
+        br.close();
+        b = new char[m][n];
+        moving = false;
+        Integer ix, iy, ir;
+        ArrayList<Integer> c;
+        char sh;
+        for(int j = 0; j < a; j ++){ 
+            for (int i = 0; i < m; i++) {
+                Arrays.fill(b[i], 'X');
+            }
+            for (int i = 0; i < a; i++) {
+                if(j==i){
+                    continue;
+                }
+                c = sp.get(i);
+                sh = shapes.get(i);
+                ix = c.get(0);
+                iy = c.get(1);
+                ir = c.get(2);
+                moveShip(ix, iy, ir, sh);
+            }
+            c = sp.get(j);
+            sh = shapes.get(j);
+            ix = c.get(0);
+            iy = c.get(1);
+            ir = c.get(2);
+            if(willCollide(ix, iy, ir, sh)){
+                c.set(6, 0);
+                sp.set(j, c);
+            }else{
+                moving = true;
+            }
+        }
+        System.out.println(sp);
+        for (int i = 0; i < m; i++) {
+            Arrays.fill(b[i], 'X');
+        }
+        for (int i = 0; i < a; i++) {
+            c = sp.get(i);
+            sh = shapes.get(i);
+            ix = c.get(0);
+            iy = c.get(1);
+            ir = c.get(2);
+            moveShip(ix, iy, ir, sh);
+        }
+        
+        bw = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        while (moving) {
+            //printboard(false);
+            initializeBoard();
+        }
+        printboard(true);
+        bw.close();
+    }
+    static void printboard(Boolean finalPrint) throws IOException{
+        if(finalPrint){
+            for (int i = 0; i < m; i++) {
+                bw.write(new String(b[i]));
+                bw.newLine();
+            }
+        }else{
+            for (int i = 0; i < m; i++) {
+                System.out.println(new String(b[i]));
+            }
+            System.out.println();
+        }
+    }
+
+    static void initializeBoard() {
+        moving = false;
+        ArrayList<Integer> c;
+        Integer ix, iy, ir, dx, dy, dr, check;
+        for (int i = 0; i < a; i++) {
+            c = sp.get(i);
+            char sh = shapes.get(i);
+            check = c.get(6);
+            if (check == 0) {
+                continue;
+            }
+            dx = c.get(3);
+            dy = c.get(4);
+            dr = c.get(5);
+            ix = c.get(0);
+            iy = c.get(1);
+            ir = c.get(2);
+            if (checkMoveShip(ix, iy, ir, dx, dy, dr, sh)) {
+                c.set(0, ix + dx);
+                c.set(1, iy + dy);
+                c.set(2, (ir + dr) % 4);
+                moving = true;
+                //System.out.println(i + "does not collide");
+            } else {
+                c.set(6, 0);
+                //System.out.println(i + " collides");
+            }
+            sp.set(i, c);
+        }
+    }
+
+    static Boolean checkMoveShip(Integer ix, Integer iy, Integer ir, Integer dx, Integer dy, Integer dr, char sh) {
+        removeShip(ix, iy, ir, sh);
+        Boolean willColl;
+        try {
+            willColl = willCollide(ix + dx, iy + dy, ir + dr, sh);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            willColl = true;
+        }
+        if (willColl) {
+            moveShip(ix, iy, ir, sh);
+            return false;
+        } else {
+            moveShip(ix + dx, iy + dy, ir + dr, sh);
+            return true;
+        }
+    }
+
+    static void moveShip(Integer ix, Integer iy, Integer ir, char sh) {
+        ir = (4+(ir % 4))%4;
+        switch (sh) {
+            case 'I':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'I';
+                        b[iy + 1][ix + 1] = 'I';
+                        b[iy + 2][ix + 1] = 'I';
+                        b[iy + 3][ix + 1] = 'I';
+                        break;
+                    case 1:
+                        
+b[iy + 1][ix    ] = 'I';b[iy + 1][ix + 1] = 'I';b[iy + 1][ix + 2] = 'I';b[iy + 1][ix + 3] = 'I';
+                        
+
+                        break;
+                    case 2:
+                                                b[iy    ][ix + 2] = 'I';
+                                                b[iy + 1][ix + 2] = 'I';
+                                                b[iy + 2][ix + 2] = 'I';
+                                                b[iy + 3][ix + 2] = 'I';
+                        break;
+                    case 3:
+                        
+                        
+b[iy + 2][ix    ] = 'I';b[iy + 2][ix + 1] = 'I';b[iy + 2][ix + 2] = 'I';b[iy + 2][ix + 3] = 'I';
+
+                        break;
+                }
+                break;
+            case 'L':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'L';
+                        b[iy + 1][ix + 1] = 'L';
+                        b[iy + 2][ix + 1] = 'L';b[iy + 2][ix + 2] = 'L';
+                        break;
+                    case 1:
+                        
+b[iy + 1][ix    ] = 'L';b[iy + 1][ix + 1] = 'L';b[iy + 1][ix + 2] = 'L';
+b[iy + 2][ix    ] = 'L';
+                        break;
+                    case 2:
+b[iy    ][ix    ] = 'L';b[iy    ][ix + 1] = 'L';
+                        b[iy + 1][ix + 1] = 'L';
+                        b[iy + 2][ix + 1] = 'L';
+                        break;
+                    case 3:
+                                                b[iy    ][ix + 2] = 'L';
+b[iy + 1][ix    ] = 'L';b[iy + 1][ix + 1] = 'L';b[iy + 1][ix + 2] = 'L';
+                        
+                        break;
+                }
+                break;
+            case 'O':
+b[iy    ][ix    ] = 'O';b[iy    ][ix + 1] = 'O';
+b[iy + 1][ix    ] = 'O';b[iy + 1][ix + 1] = 'O';
+                break;
+            case 'J':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'J';
+                        b[iy + 1][ix + 1] = 'J';
+b[iy + 2][ix    ] = 'J';b[iy + 2][ix + 1] = 'J';
+                        break;
+                    case 1:
+b[iy    ][ix    ] = 'J';
+b[iy + 1][ix    ] = 'J';b[iy + 1][ix + 1] = 'J';b[iy + 1][ix + 2] = 'J';
+
+                        break;
+                    case 2:
+                        b[iy    ][ix + 1] = 'J';b[iy    ][ix + 2] = 'J';
+                        b[iy + 1][ix + 1] = 'J';
+                        b[iy + 2][ix + 1] = 'J';
+                        break;
+                    case 3:
+
+b[iy + 1][ix    ] = 'J';b[iy + 1][ix + 1] = 'J';b[iy + 1][ix + 2] = 'J';
+                                                b[iy + 2][ix + 2] = 'J';
+                        break;
+                }
+                break;
+            case 'T':
+                switch (ir) {
+                    case 0:
+
+b[iy + 1][ix    ] = 'T';b[iy + 1][ix + 1] = 'T';b[iy + 1][ix + 2] = 'T';
+                        b[iy + 2][ix + 1] = 'T';
+                        break;
+                    case 1:
+                        b[iy    ][ix + 1] = 'T';
+b[iy + 1][ix    ] = 'T';b[iy + 1][ix + 1] = 'T';
+                        b[iy + 2][ix + 1] = 'T';
+                        break;
+                    case 2:
+                        b[iy    ][ix + 1] = 'T';
+b[iy + 1][ix    ] = 'T';b[iy + 1][ix + 1] = 'T';b[iy + 1][ix + 2] = 'T';
+
+                        break;
+                    case 3:
+                        b[iy    ][ix + 1] = 'T';
+                        b[iy + 1][ix + 1] = 'T';b[iy + 1][ix + 2] = 'T';
+                        b[iy + 2][ix + 1] = 'T';
+                        break;
+                }
+                break;
+            case 'S':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'S';b[iy    ][ix + 2] = 'S';
+b[iy + 1][ix    ] = 'S';b[iy + 1][ix + 1] = 'S';
+
+                        break;
+                    case 1:
+                        b[iy    ][ix + 1] = 'S';
+                        b[iy + 1][ix + 1] = 'S';b[iy + 1][ix + 2] = 'S';
+                                                b[iy + 2][ix + 2] = 'S';
+                        break;
+                    case 2:
+                        
+                        b[iy + 1][ix + 1] = 'S';b[iy + 1][ix + 2] = 'S';
+b[iy + 2][ix    ] = 'S';b[iy + 2][ix + 1] = 'S';
+                        break;
+                    case 3:
+b[iy    ][ix    ] = 'S';
+b[iy + 1][ix    ] = 'S';b[iy + 1][ix + 1] = 'S';
+                        b[iy + 2][ix + 1] = 'S';
+                        break;
+                }
+                break;
+            case 'Z':
+                switch (ir) {
+                    case 0:
+b[iy    ][ix    ] = 'Z';b[iy    ][ix + 1] = 'Z';
+                        b[iy + 1][ix + 1] = 'Z';b[iy + 1][ix + 2] = 'Z';
+                        
+                        break;
+                    case 1:
+                                                b[iy    ][ix + 2] = 'Z';
+                        b[iy + 1][ix + 1] = 'Z';b[iy + 1][ix + 2] = 'Z';
+                        b[iy + 2][ix + 1] = 'Z';
+                        break;
+                    case 2:
+                        
+b[iy + 1][ix    ] = 'Z';b[iy + 1][ix + 1] = 'Z';
+                        b[iy + 2][ix + 1] = 'Z';b[iy + 2][ix + 2] = 'Z';
+                        break;
+                    case 3:
+                        b[iy    ][ix + 1] = 'Z';
+b[iy + 1][ix    ] = 'Z';b[iy + 1][ix + 1] = 'Z';
+b[iy + 2][ix    ] = 'Z';
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    static void removeShip(Integer ix, Integer iy, Integer ir, char sh) {
+        ir = (4+(ir % 4))%4;
+        switch (sh) {
+            case 'I':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        b[iy + 3][ix + 1] = 'X';
+                        break;
+                    case 1:
+                        
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';b[iy + 1][ix + 3] = 'X';
+                        
+
+                        break;
+                    case 2:
+                                                b[iy    ][ix + 2] = 'X';
+                                                b[iy + 1][ix + 2] = 'X';
+                                                b[iy + 2][ix + 2] = 'X';
+                                                b[iy + 3][ix + 2] = 'X';
+                        break;
+                    case 3:
+                        
+                        
+b[iy + 2][ix    ] = 'X';b[iy + 2][ix + 1] = 'X';b[iy + 2][ix + 2] = 'X';b[iy + 2][ix + 3] = 'X';
+
+                        break;
+                }
+                break;
+            case 'L':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';b[iy + 2][ix + 2] = 'X';
+                        break;
+                    case 1:
+                        
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+b[iy + 2][ix    ] = 'X';
+                        break;
+                    case 2:
+b[iy    ][ix    ] = 'X';b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 3:
+                                                b[iy    ][ix + 2] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                        
+                        break;
+                }
+                break;
+            case 'O':
+b[iy    ][ix    ] = 'X';b[iy    ][ix + 1] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';
+                break;
+            case 'J':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';
+b[iy + 2][ix    ] = 'X';b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 1:
+b[iy    ][ix    ] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+
+                        break;
+                    case 2:
+                        b[iy    ][ix + 1] = 'X';b[iy    ][ix + 2] = 'X';
+                        b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 3:
+
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                                                b[iy + 2][ix + 2] = 'X';
+                        break;
+                }
+                break;
+            case 'T':
+                switch (ir) {
+                    case 0:
+
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 1:
+                        b[iy    ][ix + 1] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 2:
+                        b[iy    ][ix + 1] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+
+                        break;
+                    case 3:
+                        b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                }
+                break;
+            case 'S':
+                switch (ir) {
+                    case 0:
+                        b[iy    ][ix + 1] = 'X';b[iy    ][ix + 2] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';
+
+                        break;
+                    case 1:
+                        b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                                                b[iy + 2][ix + 2] = 'X';
+                        break;
+                    case 2:
+                        
+                        b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+b[iy + 2][ix    ] = 'X';b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 3:
+b[iy    ][ix    ] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                }
+                break;
+            case 'Z':
+                switch (ir) {
+                    case 0:
+b[iy    ][ix    ] = 'X';b[iy    ][ix + 1] = 'X';
+                        b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                        
+                        break;
+                    case 1:
+                                                b[iy    ][ix + 2] = 'X';
+                        b[iy + 1][ix + 1] = 'X';b[iy + 1][ix + 2] = 'X';
+                        b[iy + 2][ix + 1] = 'X';
+                        break;
+                    case 2:
+                        
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';
+                        b[iy + 2][ix + 1] = 'X';b[iy + 2][ix + 2] = 'X';
+                        break;
+                    case 3:
+                        b[iy    ][ix + 1] = 'X';
+b[iy + 1][ix    ] = 'X';b[iy + 1][ix + 1] = 'X';
+b[iy + 2][ix    ] = 'X';
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    static Boolean willCollide(Integer ix, Integer iy, Integer ir, char sh) {
+        ir = (4+(ir % 4))%4;
+        switch (sh) {
+            case 'I':
+                switch (ir) {
+                    case 0:
+                        if (        
+                                    b[iy    ][ix + 1] == 'X'
+                                &&  b[iy + 1][ix + 1] == 'X'
+                                &&  b[iy + 2][ix + 1] == 'X'
+                                &&  b[iy + 3][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (
+                                
+b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X' && b[iy + 1][ix + 3] == 'X'
+                            
+                                
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (                                b[iy    ][ix + 2] == 'X'
+                                                        &&  b[iy + 1][ix + 2] == 'X'
+                                                        &&  b[iy + 2][ix + 2] == 'X'
+                                                        &&  b[iy + 3][ix + 2] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if ( 
+                                
+                                
+b[iy + 2][ix    ] == 'X' && b[iy + 2][ix + 1] == 'X' && b[iy + 2][ix + 2] == 'X' && b[iy + 2][ix + 3] == 'X'
+                            
+                            ) {
+                            return false;
+                        }
+                        break;
+                }
+                break;
+            case 'L':
+                switch (ir) {
+                    case 0:
+                        if (        
+                                    b[iy    ][ix + 1] == 'X'
+                                &&  b[iy + 1][ix + 1] == 'X'
+                                &&  b[iy + 2][ix + 1] == 'X'&&b[iy + 2][ix + 2] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (
+                                   
+   b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+&& b[iy + 2][ix    ] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (
+b[iy    ][ix    ] == 'X' && b[iy    ][ix + 1] == 'X'
+                         && b[iy + 1][ix + 1] == 'X'
+                         && b[iy + 2][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if (
+                                                          b[iy    ][ix + 2] == 'X'
+&& b[iy + 1][ix + 0] == 'X'&& b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                
+                                ) {
+                            return false;
+                        }
+                        break;
+                }
+                break;
+            case 'O':
+                if (
+                        b[iy    ][ix    ] == 'X' && b[iy    ][ix + 1] == 'X'
+                     && b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X'
+                    ) {
+                    return false;
+                }
+                break;
+            case 'J':
+                switch (ir) {
+                    case 0:
+                        if (
+                               b[iy    ][ix + 1] == 'X'
+                            && b[iy + 1][ix + 1] == 'X'
+&& b[iy + 2][ix    ] == 'X' && b[iy + 2][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (
+   b[iy    ][ix    ] == 'X'
+&& b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (
+                                   b[iy    ][ix + 1] == 'X' && b[iy    ][ix + 2] == 'X'
+                                && b[iy + 1][ix + 1] == 'X'
+                                && b[iy + 2][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if (
+                                
+b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                                     && b[iy + 2][ix + 2] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                }
+                break;
+            case 'T':
+                switch (ir) {
+                    case 0:
+                        if (
+                                   
+b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                         && b[iy + 2][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (
+                               b[iy    ][ix + 1] == 'X'
+&& b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X'
+                            && b[iy + 2][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (
+                               b[iy    ][ix + 1] == 'X'
+&& b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if (
+                                   b[iy    ][ix + 1] == 'X'
+                                && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                && b[iy + 2][ix + 1] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                }
+                break;
+            case 'S':
+                switch (ir) {
+                    case 0:
+                        if (
+                                   b[iy    ][ix + 1] == 'X' && b[iy    ][ix + 2] == 'X'
+    && b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X'
+                            
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (
+                                b[iy    ][ix + 1] == 'X'
+                             && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                                         && b[iy + 2][ix + 2] == 'X'
+                            ) {
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (
+                                b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+  && b[iy + 2][ix    ] == 'X'&& b[iy + 2][ix + 1] == 'X') {
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if (
+   b[iy    ][ix    ] == 'X'
+&& b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X'
+                            && b[iy + 2][ix + 1] == 'X') {
+                            return false;
+                        }
+                        break;
+                }
+                break;
+            case 'Z':
+                switch (ir) {
+                    case 0:
+                        if (
+b[iy    ][ix    ] == 'X' && b[iy    ][ix + 1] == 'X'
+                         && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+                                
+                                ) {
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (
+                                   b[iy    ][ix + 2] == 'X'
+    && b[iy + 1][ix + 1] == 'X' && b[iy + 1][ix + 2] == 'X'
+    && b[iy + 2][ix + 1] == 'X'
+                                ) {
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (
+ b[iy + 1][ix    ] == 'X' && b[iy + 1][ix + 1] == 'X'
+                          && b[iy + 2][ix + 1] == 'X'&& b[iy + 2][ix + 2] == 'X'
+                                ) {
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if (
+                                   b[iy    ][ix + 1] == 'X'
+     && b[iy + 1][ix    ] == 'X'&& b[iy + 1][ix + 1] == 'X'
+     && b[iy + 2][ix    ] == 'X'
+                                ) {
+                            return false;
+                        }
+                        break;
+                }
+                break;
+        }
+        return true;
+    }
+}

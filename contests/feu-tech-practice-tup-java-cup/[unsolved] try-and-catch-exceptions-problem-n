@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+class Solution {
+
+    public static void main(String[] args) {
+        //DW =(INT((26 * (M + 1)) / 10) + K + Y + INT(Y / 4) + INT(C / 4) - (2 * C )) MOD 7
+        //IF DW < 0 THEN DW=DW+7
+        Scanner inp = new Scanner(System.in);
+        LinkedList <String> dates = new LinkedList();
+        String m;
+        String k;
+        Integer year;
+        Integer Y;
+        Integer C;
+        while(inp.hasNext()){
+            m = inp.next();
+            k = inp.next();
+            year = inp.nextInt();
+            k = k.substring(0,k.length()-1);
+            Y =  year%100;
+            C = (year - Y)/100;
+            dates.add(DW(m,k,Y,C));
+        }
+        for(String str : dates){
+            System.out.println(str);
+        }
+    }
+    static String DW (String m, String k, Integer Y, Integer C){
+        Integer M = 0;
+        switch(m){
+            case "JANUARY": {M = 13; Y--; break;}
+            case "FEBRUARY": {M = 14; Y--; break;}
+            case "MARCH": {M = 3; break;}
+            case "APRIL": {M = 4; break;}
+            case "MAY": {M = 5; break;}
+            case "JUNE": {M = 6; break;}
+            case "JULY": {M = 7; break;}
+            case "AUGUST": {M = 8; break;}
+            case "SEPTEMBER": {M = 9; break;}
+            case "OCTOBER": {M = 10; break;}
+            case "NOVEMBER": {M = 11; break;}
+            case "DECEMBER": {M = 12; break;}
+        }
+        Integer K = Integer.parseInt(k);
+        Integer dW = ((int)Math.floor((26 * (M + 1)) / 10) + K + Y + (int)Math.floor(Y / 4) + (int)Math.floor(C / 4) - (2 * C)) % 7;
+        if(dW<0){
+            dW += 7;
+        }
+        switch(dW){
+            case 0: {return "SATURDAY"; }
+            case 1: {return "SUNDAY"; }
+            case 2: {return "MONDAY"; }
+            case 3: {return "TUESDAY"; }
+            case 4: {return "WEDNESDAY"; }
+            case 5: {return "THURSDAY"; }
+            case 6: {return "FRIDAY"; }
+            case 7: {return "SATURDAY"; }
+        }
+        return "ERROR";
+    }
+}

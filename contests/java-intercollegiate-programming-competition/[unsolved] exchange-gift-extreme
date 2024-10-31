@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+class Solution {
+
+    public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        int M = inp.nextInt();
+        int N = inp.nextInt();
+        int [] P = new int[M];
+        for(int i = 0; i < M; i ++){
+            P[i] = inp.nextInt();
+        }
+        double sum = 0;
+        for(int i = 0; i < M; i ++){
+            sum = sum + (double)(i * P[(i - N + 3 * M)%M]);
+        }
+        NumberFormat formatter = new DecimalFormat("#0");   
+        System.out.println(formatter.format(sum));
+    }
+}
