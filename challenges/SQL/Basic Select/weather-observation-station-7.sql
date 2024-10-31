@@ -8,3 +8,5 @@ where
     or substr(city, length(city), 1) = 'i'
     or substr(city, length(city), 1) = 'o'
     or substr(city, length(city), 1) = 'u';
+
+-- substring(city, length(city), 1) in ("a", "e", "i", "o", "u")

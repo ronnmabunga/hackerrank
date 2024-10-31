@@ -10,3 +10,5 @@ where
         AND substr(city, length(city), 1) != 'o'
         AND substr(city, length(city), 1) != 'u'
     );
+
+-- substring(city, length(city), 1) not in ("a", "e", "i", "o", "u")

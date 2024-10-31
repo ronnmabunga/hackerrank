@@ -1,11 +1,25 @@
+-- select
+--     (salary * months) as earnings,
+--     count(*)
+-- from
+--     employee
+-- group by
+--     (salary * months)
+-- order by
+--     earnings desc
+-- limit
+--     1 offset 0;
+-- select
+--     concat(max(salary * months), " ", count(*))
 select
-    (salary * months) as earnings,
+    max(salary * months),
     count(*)
 from
     employee
-group by
-    (salary * months)
-order by
-    earnings desc
-limit
-    1 offset 0;
+where
+    salary * months = (
+        select
+            max(salary * months)
+        from
+            employee
+    )

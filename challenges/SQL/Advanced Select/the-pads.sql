@@ -1,21 +1,42 @@
+-- select
+--     concat(
+--         name,
+--         concat(concat('(', substr(occupation, 1, 1)), ')')
+--     )
+-- from
+--     occupations
+-- order by
+--     name asc;
+-- select
+--     (
+--         'There are a total of ' || count(occupation) || ' ' || lower(occupation) || 's.'
+--     )
+-- from
+--     occupations
+-- group by
+--     occupation
+-- order by
+--     count(occupation),
+--     occupation asc;
 select
-    concat(
-        name,
-        concat(concat('(', substr(occupation, 1, 1)), ')')
-    )
+    CONCAT(name, "(", substring(occupation, 1, 1), ")")
 from
     occupations
 order by
     name asc;
 
 select
-    (
-        'There are a total of ' || count(occupation) || ' ' || lower(occupation) || 's.'
+    CONCAT(
+        "There are a total of ",
+        count(occupation),
+        " ",
+        lower(occupation),
+        "s."
     )
 from
     occupations
 group by
     occupation
 order by
-    count(occupation),
+    count(occupation) asc,
     occupation asc;

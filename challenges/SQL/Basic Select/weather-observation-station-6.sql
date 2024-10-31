@@ -12,3 +12,5 @@ where
     OR substr(city, 1, 1) = 'I'
     OR substr(city, 1, 1) = 'O'
     OR substr(city, 1, 1) = 'U';
+
+-- substring(city, 1, 1) in ("A", "E", "I", "O", "U")
